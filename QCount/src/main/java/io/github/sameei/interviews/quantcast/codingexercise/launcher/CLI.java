@@ -31,7 +31,8 @@ public class CLI {
                         "Select Counting Engine: SIMPLE, LAZY, WEIRED; Default: SIMPLE")
                 .addOption(Option.builder()
                         .longOpt(OPT_FAIL_FAST)
-                        .desc("FailFast: Fail if encountered malformed csv-record; Default=false")
+                        .desc("If the process should terminate encountering not well formated " +
+                                "data; Note: not all engines support this feature.")
                         .build());
     }
 

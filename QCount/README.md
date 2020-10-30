@@ -4,6 +4,11 @@ $ git clone https://github.com/sameei/interviews.git
 $ cd interviews/QCount
 $ mvn package
 
+
+# package to install/release
+$ ls target/interview-qcount-dist.tar.gz 
+
+# sample of the package
 $ cd target/interview-qcount-dist
 ```
 #### Cli Arguments
