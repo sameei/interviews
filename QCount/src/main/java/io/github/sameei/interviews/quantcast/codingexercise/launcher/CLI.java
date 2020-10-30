@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class CLI {
 
@@ -16,7 +15,7 @@ public class CLI {
 
     public static final String OPT_FILE = "f";
     public static final String OPT_DATE = "d";
-    public static final String OPT_FILE_WITH_HEADER = "h";
+    public static final String OPT_NO_HEADER = "noheader";
     public static final String OPT_COUNTING_ENGINE = "e";
     public static final String OPT_FAIL_FAST = "failfast";
 
@@ -24,8 +23,10 @@ public class CLI {
         return new Options()
                 .addOption(OPT_FILE, true, "Path to the File")
                 .addOption(OPT_DATE, true, "Date to filter DataSet")
-                .addOption(OPT_FILE_WITH_HEADER, false,
-                        "Flag to show whether the file has header or not;")
+                .addOption(Option.builder()
+                        .longOpt(OPT_NO_HEADER)
+                        .hasArg(false)
+                        .desc("If the csv-file has no header").build())
                 .addOption(OPT_COUNTING_ENGINE, true,
                         "Select Counting Engine: SIMPLE, LAZY, WEIRED; Default: SIMPLE")
                 .addOption(Option.builder()
@@ -86,7 +87,7 @@ public class CLI {
                         DataParser.DEFAULT_DATE_PATTERN);
             }
 
-            boolean fileHasHeader = args.hasOption(OPT_FILE_WITH_HEADER);
+            boolean fileHasHeader = !args.hasOption(OPT_NO_HEADER);
 
             boolean failFast = args.hasOption(OPT_FAIL_FAST);
 

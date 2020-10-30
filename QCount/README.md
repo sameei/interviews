@@ -1,13 +1,46 @@
-
+#### Clone & Build
 ```shell script
-$ git clone 
+$ git clone https://github.com/sameei/interviews.git
+$ cd interviews/QCount
 $ mvn package
-$ cd ./target/quantcast-codeexercise-dist
 
-$ ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-06 -h
+$ cd target/interview-qcount-dist
+```
+#### Cli Arguments
+```shell script
+$ ./bin/QCount
+INVALID_ARG: File ('f') is required!
+usage: QCount
+ -d <arg>        Date to filter DataSet
+ -e <arg>        Select Counting Engine: SIMPLE, LAZY, WEIRED; Default:
+                 SIMPLE
+ -f <arg>        Path to the File
+    --failfast   FailFast: Fail if encountered malformed csv-record;
+                 Default=false
+    --noheader   If the csv-file has no header
+```
+#### Successful Run
+```shell script
+$ ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-09
+AtY0laUfhglK3lC7
+```
+```shell script
+$ ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-08
+fbcn5UAVanZf6UtG
+SAZuXPGUrfbcn5UA
+4sMM2LxV07bPJzwf
+```
+```shell script
+$ ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-07
+4sMM2LxV07bPJzwf
+```
+```shell script
+$ ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-06
 NONE_EMPTY
-
-$ DEBUG=true ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-06 -h
+```
+#### Run in DEBUG (verbos) mood
+```shell script
+$ DEBUG=true ./bin/QCount -f ../../data-sample/cookies.csv -d 2018-12-06
 Project Path: '.'
 Include ...
     ./conf

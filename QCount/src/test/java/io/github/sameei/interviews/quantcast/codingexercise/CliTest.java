@@ -96,7 +96,7 @@ public class CliTest {
 
         for (Map.Entry<String, List<String>> dateAndSet : dataset.resultSetPerDay.entrySet()) {
             List<String> lines = StdOutCollector.collect(() -> {
-                Launcher.main(new String[]{"-f", filePath, "-d", dateAndSet.getKey(), "-h"});
+                Launcher.main(new String[]{"-f", filePath, "-d", dateAndSet.getKey()});
             });
             System.out.printf(
                     "For '%s' : %s; Expected: %s\n",
@@ -115,17 +115,17 @@ public class CliTest {
         String filePath = file.getPath();
 
         List<String> lines = StdOutCollector.collect(() -> {
-            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-h", "-e", "simple"});
+            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-e", "simple"});
         });
         assertThat(lines).contains("NONE_EMPTY");
 
         lines = StdOutCollector.collect(() -> {
-            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-h", "-e", "lazy"});
+            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-e", "lazy"});
         });
         assertThat(lines).contains("NONE_EMPTY");
 
         lines = StdOutCollector.collect(() -> {
-            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-h", "-e", "weired"});
+            Launcher.main(new String[]{"-f", filePath, "-d", "2018-01-01", "-e", "weired"});
         });
         assertThat(lines).contains("NONE_EMPTY");
     }
