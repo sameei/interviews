@@ -1,0 +1,30 @@
+#! /bin/bash
+
+DEBUG="${DEBUG:-false}"
+
+BINDIR=$(dirname "$0")
+# PRJDIR=$(realpath $BINDIR/..)
+PRJDIR=$(dirname "$BINDIR")
+
+$DEBUG && echo "Project Path: '$PRJDIR'"
+
+# === IMPORT ===
+. "$PRJDIR/bin/base"
+
+# === CONFIG ===
+if [[ "$DEBUG" == "true" ]]; then
+  OPTS="$OPTS -Dlogback.configurationFile=$PRJDIR/conf/logback-debug.xml"
+else
+  OPTS="$OPTS -Dlogback.configurationFile=$PRJDIR/conf/logback.xml"
+fi
+
+# === RUN ===
+MAIN_CLASS="io.github.sameei.interviews.quantcast.codingexercise.launcher.Launcher"
+CMD="$JAVA_HOME/bin/java -cp $CP $OPTS $JAVA_OPTS $MAIN_CLASS"
+$DEBUG && echo "..."
+$DEBUG && echo $CMD
+$DEBUG && echo "..."
+exec $CMD "$@"
+
+
+

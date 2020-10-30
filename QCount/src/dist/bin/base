@@ -1,0 +1,40 @@
+#! /bin/bash
+
+# === CLASS PATH ===
+
+$DEBUG && echo "Include ..."
+CP="$PRJDIR/conf"
+$DEBUG && echo "    $CP"
+
+for file in `ls $PRJDIR/libs`; do
+  $DEBUG && echo "    $PRJDIR/libs/$file";
+  CP="$CP:$PRJDIR/libs/$file";
+done
+
+# === OPTIONS ===
+
+OPTS=""
+
+# === GC ===
+
+OPTS="$OPTS -Xms2g -Xmx4g"
+OPTS="$OPTS -XX:+UseG1GC"
+
+# OPTS="$OPTS -XX:G1HeapRegionSize=2|4|8|16|32"
+OPTS="$OPTS -XX:+UnlockExperimentalVMOptions"
+OPTS="$OPTS -XX:G1NewSizePercent=30"
+OPTS="$OPTS -XX:G1NewSizePercent=40"
+OPTS="$OPTS -XX:MaxGCPauseMillis=700"
+OPTS="$OPTS -XX:ParallelGCThreads=8"
+OPTS="$OPTS -XX:ConcGCThreads=2"
+OPTS="$OPTS -XX:InitiatingHeapOccupancyPercent=50"
+OPTS="$OPTS -XX:G1MixedGCLiveThresholdPercent=60"
+# OPTS="$OPTS -XX:G1HeapWastePercent=10"
+# ? OPTS="$OPTS -XX:G1MixedGCCountTarget=8"
+OPTS="$OPTS -XX:G1ReservePercent=10"
+
+# OPTS="$OPTS -Xlog:gc*=warning:file=$PRJDIR/log/jvm.gc.log:uptimemillis,pid:filecount=5,filesize=10m"
+# OPTS="$OPTS -Xlog:safepoint*=warning:file=$PRJDIR/log/jvm.safepoint.log:uptimemillis,pid:filecount=5,filesize=10m"
+# OPTS="-Xlog:class+unload=off"
+OPTS="$OPTS -XX:+HeapDumpOnOutOfMemoryError"
+OPTS="$OPTS -XX:HeapDumpPath=$PRJDIR/log/{name}.heapdumps"
